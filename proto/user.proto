@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package user;
+
+service UserService {
+    //微信登录
+    rpc WxAuth(WxAuthRq) returns (WxAuthRp) {}
+    //更新用户信息
+    rpc EditInfo(EditInfoRq) returns (EditInfoRp) {}
+    //获取用户信息
+    rpc GetInfo(GetInfoRq) returns (GetInfoRp) {}
+}
+message WxAuthRq {
+    string code = 1;
+}
+message WxAuthRp {
+    string token = 1;//token
+    int32 expire = 2;//过期时间戳
+}
+message EditInfoRq {
+    int64 id = 1;
+    string user_name = 2;
+    string user_icon = 3;
+    double user_coin = 4;
+    double user_balance = 5;
+    reserved "user_mobile";
+}
+message EditInfoRp {
+    EditInfoRq rp = 1;
+}
+message GetInfoRq {
+    int64 id = 1;
+}
+message GetInfoRp {
+    EditInfoRq info = 1;
+}
